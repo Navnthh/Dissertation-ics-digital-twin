@@ -1,0 +1,19 @@
+{
+  "swat_normal_file": "experiments/swat_style_minicps/data/raw/normal.csv",
+  "minicps_source_dir": "/home/nr419/ics_dataset_test/live_final_100_15min_actual_sensed",
+  "output_dir": "experiments/swat_style_minicps/data/processed/swat_style_minicps_runs",
+  "generated_files": 100,
+  "mapping": {
+    "SENSOR1_SENSED": "LIT101",
+    "SENSOR2_SENSED": "FIT101",
+    "SENSOR3_SENSED": "LIT301",
+    "ACTUATOR1": [
+      "MV101",
+      "P101",
+      "MV301",
+      "P301"
+    ],
+    "attack": "Normal/Attack"
+  },
+  "note": "This creates SWaT-style synthetic MiniCPS telemetry. It does not copy SWaT rows."
+}

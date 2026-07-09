@@ -1,0 +1,9 @@
+{
+  "real_swat_normal_rows": 1387098,
+  "generated_swat_style_files": 100,
+  "generated_swat_style_rows": 90000,
+  "numeric_profile": "experiments/swat_style_minicps/results/swat_vs_generated_numeric_profile.csv",
+  "actuator_profile": "experiments/swat_style_minicps/results/swat_vs_generated_actuator_profile.csv",
+  "label_profile": "experiments/swat_style_minicps/results/swat_vs_generated_label_profile.csv",
+  "note": "Generated data is SWaT-style synthetic MiniCPS telemetry. It is compared against SWaT normal-operation ranges and actuator states."
+}

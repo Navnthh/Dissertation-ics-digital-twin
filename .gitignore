@@ -8,3 +8,8 @@ __pycache__/
 *.db
 setup_swat_native/logs/
 setup_swat_native/*.bak
+
+# SWaT dataset and generated CSV outputs
+experiments/swat_style_minicps/data/raw/
+experiments/swat_style_minicps/data/processed/
+*.zip
