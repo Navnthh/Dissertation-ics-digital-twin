@@ -1,0 +1,10 @@
+
+# Python cache
+__pycache__/
+*.pyc
+
+# MiniCPS runtime files
+*.sqlite
+*.db
+setup_swat_native/logs/
+setup_swat_native/*.bak

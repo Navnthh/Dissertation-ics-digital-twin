@@ -29,16 +29,16 @@ class SWaTNativeCPS(MiniCPS):
             'hmi'
         )
 
-        net.terms += makeTerm(s1, display=None, cmd='python physical_process.py')
+        net.terms += makeTerm(s1, display=None, cmd='python3 physical_process.py')
         time.sleep(0.2)
 
-        net.terms += makeTerm(plc3, display=None, cmd='python plc3.py')
+        net.terms += makeTerm(plc3, display=None, cmd='python3 plc3.py')
         time.sleep(0.2)
 
-        net.terms += makeTerm(plc2, display=None, cmd='python plc2.py')
+        net.terms += makeTerm(plc2, display=None, cmd='python3 plc2.py')
         time.sleep(0.2)
 
-        net.terms += makeTerm(plc1, display=None, cmd='python plc1.py')
+        net.terms += makeTerm(plc1, display=None, cmd='python3 plc1.py')
         time.sleep(0.2)
 
         net.terms += makeTerm(plc1, display=None)

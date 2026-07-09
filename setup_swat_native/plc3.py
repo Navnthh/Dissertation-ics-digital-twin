@@ -27,13 +27,13 @@ P302 = ('P302', 3)
 class SWaTPLC3(PLC):
 
     def pre_loop(self, sleep=0.6):
-        print 'DEBUG: SWaT PLC3 enters pre_loop'
-        print
+        print('DEBUG: SWaT PLC3 enters pre_loop')
+        print()
         time.sleep(sleep)
 
     def main_loop(self, sleep=0.0):
-        print 'DEBUG: SWaT PLC3 enters main_loop.'
-        print
+        print('DEBUG: SWaT PLC3 enters main_loop.')
+        print()
 
         logging.basicConfig(
             filename='logs/swat_plc3.log',
@@ -67,7 +67,7 @@ class SWaTPLC3(PLC):
                 self.send(P301, p301, PLC3_ADDR)
                 self.send(P302, p302, PLC3_ADDR)
 
-                print "DEBUG PLC3 - LIT301 %.5f MV301 %d P301 %d" % (lit301, mv301, p301)
+                print("DEBUG PLC3 - LIT301 %.5f MV301 %d P301 %d" % (lit301, mv301, p301))
 
                 logging.info("LIT301 updated: %.5f" % lit301)
             except:
@@ -75,7 +75,7 @@ class SWaTPLC3(PLC):
 
             time.sleep(PLC_PERIOD_SEC)
 
-        print 'DEBUG SWaT PLC3 shutdown'
+        print('DEBUG SWaT PLC3 shutdown')
 
 
 if __name__ == "__main__":

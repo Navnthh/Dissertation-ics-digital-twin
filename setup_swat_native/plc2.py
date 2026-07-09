@@ -22,13 +22,13 @@ FIT301 = ('FIT301', 2)
 class SWaTPLC2(PLC):
 
     def pre_loop(self, sleep=0.6):
-        print 'DEBUG: SWaT PLC2 enters pre_loop'
-        print
+        print('DEBUG: SWaT PLC2 enters pre_loop')
+        print()
         time.sleep(sleep)
 
     def main_loop(self, sleep=0.0):
-        print 'DEBUG: SWaT PLC2 enters main_loop.'
-        print
+        print('DEBUG: SWaT PLC2 enters main_loop.')
+        print()
 
         logging.basicConfig(
             filename='logs/swat_plc2.log',
@@ -45,7 +45,7 @@ class SWaTPLC2(PLC):
                 self.send(FIT101, fit101, PLC2_ADDR)
                 self.send(FIT301, fit301, PLC2_ADDR)
 
-                print "DEBUG PLC2 - FIT101 %.5f FIT301 %.5f" % (fit101, fit301)
+                print("DEBUG PLC2 - FIT101 %.5f FIT301 %.5f" % (fit101, fit301))
 
                 logging.info("FIT101 updated: %.5f" % fit101)
                 logging.info("FIT301 updated: %.5f" % fit301)
@@ -54,7 +54,7 @@ class SWaTPLC2(PLC):
 
             time.sleep(PLC_PERIOD_SEC)
 
-        print 'DEBUG SWaT PLC2 shutdown'
+        print('DEBUG SWaT PLC2 shutdown')
 
 
 if __name__ == "__main__":
