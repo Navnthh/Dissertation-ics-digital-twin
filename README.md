@@ -8,7 +8,9 @@ This project investigates the detection of fast and slow False Data Injection (F
 
 The Secure Water Treatment (SWaT) dataset was first analysed to examine fast sensor drift behaviour. This behaviour was then used as a baseline for controlled fast drift experiments in MiniCPS. Slower drift configurations were subsequently introduced to investigate more gradual manipulation and its effects on the wider control process.
 
-The project also examines whether attack behaviour learned at one drift rate generalises to another. Qwen2.5 0.5B Instruct was adapted using Low Rank Adaptation (LoRA) for attack classification, while Retrieval Augmented Generation (RAG) was used after detection to provide additional process and cybersecurity context.
+The study also examines the cascading effects of sensor manipulation by analysing how changes in an attacked sensor influence related sensors, Programmable Logic Controller (PLC) decisions, actuator behaviour, and the underlying process.
+
+The project further evaluates whether attack behaviour learned at one drift rate generalises to another. Qwen2.5 0.5B Instruct was adapted using Low Rank Adaptation (LoRA) for attack classification, while Retrieval Augmented Generation (RAG) was used after detection to provide additional process and cybersecurity context.
 
 ---
 
