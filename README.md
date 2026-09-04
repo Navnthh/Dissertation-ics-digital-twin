@@ -172,7 +172,7 @@ For each sensor, the following features were calculated:
 - mean
 - range
 
-For ACTUATOR1:
+For `ACTUATOR1`:
 
 - open ratio
 - transition count
@@ -181,7 +181,7 @@ These features were converted into structured textual prompts and provided to:
 
 **Qwen2.5 0.5B Instruct + LoRA**
 
-LoRA configuration:
+### LoRA Configuration
 
 - Rank: `8`
 - Alpha: `16`
@@ -191,3 +191,124 @@ The model produced one classification for each observation window:
 
 ```json
 {"prediction":"Attack"}
+```
+
+or
+
+```json
+{"prediction":"Normal"}
+```
+
+---
+
+## Detection Results
+
+### Same Drift Evaluation
+
+| Training Data | Test Data | Accuracy | F1 Score |
+|---|---|---:|---:|
+| MiniCPS Fast Drift | Fast Drift | `100.00%` | `100.00%` |
+| MiniCPS Slow Drift | Slow Drift | `98.18%` | `98.28%` |
+
+### Cross Drift Evaluation
+
+| Training Data | Test Data | Accuracy | Recall | F1 Score |
+|---|---|---:|---:|---:|
+| Fast Drift | Slow Drift | `51.22%` | `94.74%` | `64.29%` |
+| Slow Drift | Fast Drift | `37.93%` | `100.00%` | `55.00%` |
+
+The results show that detection performance was strongest when the training data reflected the drift behaviour being evaluated. Cross drift testing retained high attack recall but produced substantially more false positives.
+
+---
+
+## RAG Based Post Detection Explanation
+
+Retrieval Augmented Generation (RAG) was used after the LLM classified an observation window as `Attack`.
+
+The RAG layer did not act as a second detector and did not modify the original classification. Instead, it retrieved relevant process and cybersecurity information to provide additional context for the detected behaviour.
+
+The knowledge store was implemented using ChromaDB and included:
+
+- 615 CAPEC attack pattern entries
+- 97 MITRE ATT&CK for ICS entries
+- MiniCPS Digital Twin process information
+
+For detected attacks, the RAG layer provides context such as:
+
+- affected sensor and actuator behaviour
+- possible attack characteristics
+- relevant ICS components
+- potential process consequences
+- related MITRE ATT&CK for ICS techniques
+- suggested areas for further investigation
+
+For example, during a SENSOR1 slow drift attack, the explanation can identify the change in the controller visible tank level, relate it to actuator behaviour, identify affected components such as PLC1 and ACTUATOR1, and associate the observed behaviour with relevant industrial cybersecurity knowledge.
+
+RAG is therefore used as a **post detection explanation layer**, while Qwen2.5 0.5B Instruct with LoRA remains responsible for the `Attack` or `Normal` classification.
+
+---
+
+## How to Run the MiniCPS Experiment
+
+### Step 1 - Start the Digital Twin
+
+```bash
+cd ~/DT-based-IDS-framework/DigitalTwin-SIEM-integration/deployments/docker
+
+export HOST_IP=10.0.2.15
+xhost +si:localuser:root
+export DISPLAY=:0
+
+docker-compose up -d
+
+docker-compose exec digital_twin bash -lc \
+"cd /src && mn -c && sleep 2 && python run.py"
+```
+
+### Step 2 - Trigger the Experiment
+
+```bash
+docker-compose exec digital_twin bash -lc \
+"cd /src && touch trigger.txt"
+```
+
+### Step 3 - Run SENSOR1 Slow Drift Attack
+
+```bash
+docker exec -it digital_twin bash
+cd /src
+python attack_slow_refill_1pct.py SENSOR1 5
+```
+
+### Step 4 - Run SENSOR3 Slow Drift Attack
+
+```bash
+docker exec -it digital_twin bash
+cd /src
+python attack_slow_refill_1pct.py SENSOR3 5
+```
+
+### Step 5 - Run Cascade Monitor
+
+```bash
+docker exec -it digital_twin bash -c \
+"cd /src && python monitor_cascade_v3.py SENSOR1_1pct 5"
+```
+
+---
+
+## Project Repository
+
+The project repository contains the experimental code, attack scripts, datasets, and supporting files:
+
+https://github.com/Navnthh/Dissertation-ics-digital-twin
+
+---
+
+## Base Framework
+
+The MiniCPS experimental environment was adapted from the following framework:
+
+**DT-based-IDS-framework**
+
+https://github.com/sebavarghese/DT-based-IDS-framework
